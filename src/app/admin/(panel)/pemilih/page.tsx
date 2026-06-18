@@ -411,7 +411,7 @@ export default function PemilihPage() {
               </label>
 <Select
   value={selectedClass}
-  onValueChange={(val) => setSelectedClass(val)}
+  onValueChange={(val) => setSelectedClass(val || "")}
 >
                 <SelectTrigger>
                   <SelectValue placeholder="Pilih Kelas..." />

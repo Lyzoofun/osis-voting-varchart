@@ -1,5 +1,5 @@
 "use client";
- 
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -13,7 +13,7 @@ import {
   Check,
   Vote,
 } from "lucide-react";
- 
+
 import {
   Drawer,
   DrawerContent,
@@ -22,7 +22,7 @@ import {
   DrawerDescription,
   DrawerFooter,
 } from "@/components/ui/drawer";
- 
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -33,7 +33,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
- 
+
 // 1. Definisi Tipe Data
 interface Candidate {
   id: string;
@@ -43,7 +43,7 @@ interface Candidate {
   vision: string;
   missions: string[];
 }
- 
+
 // 2. Mock Data Kandidat
 const candidates: Candidate[] = [
   {
@@ -107,35 +107,35 @@ const candidates: Candidate[] = [
     ],
   },
 ];
- 
+
 export default function VotePage() {
   const router = useRouter();
- 
+
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [selectedCandidate, setSelectedCandidate] = useState<Candidate | null>(
     null,
   );
- 
+
   const handleLogout = () => router.push("/");
- 
+
   const handleViewDetail = (candidate: Candidate) => {
     setSelectedCandidate(candidate);
     setIsDrawerOpen(true);
   };
- 
+
   const handleVoteConfirmation = () => {
     setIsDrawerOpen(false);
     setIsConfirmOpen(true);
   };
- 
+
   const finalSubmitVote = () => {
     setIsConfirmOpen(false);
     console.log("Suara sah tercatat untuk:", selectedCandidate?.orderNumber);
     // TODO: Server Action untuk insert data ke Supabase
     router.push("/success");
   };
- 
+
   return (
     <div className="bg-slate-50 text-slate-900 antialiased min-h-screen relative flex flex-col">
       {/* Top App Bar */}
@@ -152,7 +152,7 @@ export default function VotePage() {
           </button>
         </div>
       </header>
- 
+
       {/* Main Content */}
       <main className="mx-auto max-w-md pt-24 px-4 flex flex-col gap-8 grow w-full">
         <section className="text-center mt-2">
@@ -164,7 +164,7 @@ export default function VotePage() {
             baik.
           </p>
         </section>
- 
+
         <section className="flex flex-col gap-6">
           {candidates.map((paslon, index) => (
             <article
@@ -174,13 +174,13 @@ export default function VotePage() {
               <div className="absolute -top-6 -right-2 text-9xl font-bold text-blue-600/5 select-none pointer-events-none">
                 {paslon.orderNumber}
               </div>
- 
+
               <div className="flex justify-between items-start z-10">
                 <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white text-xl font-bold shadow-lg shadow-blue-500/20">
                   {paslon.orderNumber}
                 </div>
               </div>
- 
+
               <div className="flex gap-4 z-10">
                 <div className="flex-1 aspect-square rounded-xl overflow-hidden border border-slate-200 bg-slate-100 relative group">
                   <Image
@@ -191,7 +191,7 @@ export default function VotePage() {
                     priority={index === 0}
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-slate-900/80 to-transparent p-3 pt-8">
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900/80 to-transparent p-3 pt-8">
                     <span className="text-white text-xs font-medium">
                       Ketua
                     </span>
@@ -206,14 +206,14 @@ export default function VotePage() {
                     priority={index === 0}
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-slate-900/80 to-transparent p-3 pt-8">
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900/80 to-transparent p-3 pt-8">
                     <span className="text-white text-xs font-medium">
                       Wakil
                     </span>
                   </div>
                 </div>
               </div>
- 
+
               <div className="z-10 mt-2">
                 <h3 className="text-lg font-semibold text-slate-900 leading-tight">
                   {paslon.chairman.name} &amp;
@@ -232,7 +232,7 @@ export default function VotePage() {
           ))}
         </section>
       </main>
- 
+
       <footer className="mt-8 py-8 w-full border-t border-slate-200/60 bg-slate-50/50">
         <div className="max-w-md mx-auto text-center px-4">
           <p className="text-xs text-slate-500 font-medium">
@@ -243,7 +243,7 @@ export default function VotePage() {
           </p>
         </div>
       </footer>
- 
+
       {/* ------------------------------------------------------------- */}
       {/* DRAWER (BOTTOM SHEET) VISI & MISI                             */}
       {/* ------------------------------------------------------------- */}
@@ -268,7 +268,7 @@ export default function VotePage() {
                 </div>
               </div>
             </DrawerHeader>
- 
+
             <div className="p-4 overflow-y-auto space-y-6">
               <section>
                 <div className="flex items-center gap-2 mb-3">
@@ -281,7 +281,7 @@ export default function VotePage() {
                   </p>
                 </div>
               </section>
- 
+
               <section>
                 <div className="flex items-center gap-2 mb-3">
                   <Target className="w-5 h-5 text-blue-600" />
@@ -304,7 +304,7 @@ export default function VotePage() {
                 </div>
               </section>
             </div>
- 
+
             <DrawerFooter className="border-t border-slate-100 pt-4 bg-white/80">
               <button
                 onClick={handleVoteConfirmation}
@@ -317,9 +317,9 @@ export default function VotePage() {
           </div>
         </DrawerContent>
       </Drawer>
- 
+
       {/* ------------------------------------------------------------- */}
-      {/* ALERT DIALOG KONFIRMASI (SESUAI TEMPLATE DESAIN)              */}
+      {/* ALERT DIALOG KONFIRMASI - SUDAH DIPERBAIKI 100%              */}
       {/* ------------------------------------------------------------- */}
       <AlertDialog open={isConfirmOpen} onOpenChange={setIsConfirmOpen}>
         <AlertDialogContent className="w-[calc(100%-2rem)] max-w-md mx-auto bg-white/90 backdrop-blur-lg border border-white/40 rounded-xl p-6 shadow-xl shadow-blue-500/20 flex flex-col gap-6">
@@ -332,7 +332,7 @@ export default function VotePage() {
               Konfirmasi Pilihan Anda
             </AlertDialogTitle>
           </AlertDialogHeader>
- 
+
           {/* Kartu Paslon Terpilih */}
           <div className="bg-slate-50 rounded-lg border border-slate-200 p-4 flex items-center gap-4">
             <div className="w-16 h-16 rounded-full overflow-hidden bg-slate-200 shrink-0 border border-white shadow-sm relative">
@@ -360,18 +360,16 @@ export default function VotePage() {
               </p>
             </div>
           </div>
- 
-          {/* Warning Etika - Dibungkus asChild agar bisa dikustomisasi secara presisi */}
-          <AlertDialogDescription asChild>
-            <div className="bg-blue-50/50 rounded-lg p-4 border border-blue-100 flex gap-2 items-start">
-              <Gavel className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
-              <span className="text-xs text-slate-600 leading-relaxed block">
-                Dengan menekan tombol konfirmasi, Anda menggunakan hak suara
-                Anda secara sah. Pilihan tidak dapat diubah setelah disubmit.
-              </span>
-            </div>
+
+          {/* Warning Etika - SUDAH DIPERBAIKI: hapus asChild, pindahkan className */}
+          <AlertDialogDescription className="bg-blue-50/50 rounded-lg p-4 border border-blue-100 flex gap-2 items-start">
+            <Gavel className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
+            <span className="text-xs text-slate-600 leading-relaxed block">
+              Dengan menekan tombol konfirmasi, Anda menggunakan hak suara
+              Anda secara sah. Pilihan tidak dapat diubah setelah disubmit.
+            </span>
           </AlertDialogDescription>
- 
+
           {/* Actions */}
           <AlertDialogFooter className="flex-col gap-3 sm:flex-col sm:space-x-0 mt-2">
             <AlertDialogAction

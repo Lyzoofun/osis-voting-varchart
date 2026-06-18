@@ -96,7 +96,7 @@ export async function verifyVoterPin(pin: string) {
       success: true,
       data: {
         tokenId: token.id,
-        className: token.classes?.name ?? "Kelas tidak ditemukan",
+       className: token.classes?.[0]?.name ?? "Kelas tidak ditemukan", 
       },
     };
   } catch (err) {
